@@ -32,7 +32,7 @@ module.exports.signin = async (req, res, next) => {
         }
 
     } else {
-        res.json({ message: 'E-mail Not Registered' })
+        res.status(409).json({ message: 'E-mail Not Registered' })
     }
 
 }
