@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
         enum: ['user', 'admin'],
         default: "user"
     },
-    wishList: [{ type: mongoose.SchemaTypes.ObjectId , ref:"plant"} ]
+    wishList: [{ type: mongoose.SchemaTypes.ObjectId , ref:"book"} ]
 
 }, { timestamps: true })
 // **************************************Hash Password **************************

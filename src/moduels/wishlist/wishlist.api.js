@@ -1,7 +1,7 @@
 const app = require('express').Router()
 const { protectedRoutes, allowedTo } = require('../auth/auth.service')
-const { removeFromWishList, getAllUserWishList, addPlantToWishList, removePlantFromWishList, getAllUserPlantWishList } = require('./wishlist.service')
-app.route('/').post(protectedRoutes,addPlantToWishList)
-app.route('/').delete(protectedRoutes,removePlantFromWishList)
-app.route('/').get(protectedRoutes, allowedTo('user'),getAllUserPlantWishList)
+const {  addBookToWishList, removeBookFromWishList, getAllUserBookWishList } = require('./wishlist.service')
+app.route('/').post(protectedRoutes,addBookToWishList)
+app.route('/').delete(protectedRoutes,removeBookFromWishList)
+app.route('/').get(protectedRoutes, allowedTo('user'),getAllUserBookWishList)
 module.exports = app
