@@ -16,6 +16,8 @@ app.use('/api/v1/users', require('./src/moduels/user/user.api'))
 app.use('/api/v1/auth', require('./src/moduels/auth/auth.api'))
 app.use('/api/v1/wishList', require('./src/moduels/wishlist/wishlist.api'))
 app.use('/api/v1/books', require('./src/moduels/book/book.api'))
+app.use('/api/v1/carts', require('./src/moduels/cart/cart.api'))
+app.use('/api/v1/orders', require('./src/moduels/order/order.api'))
 
 
 app.all('*', (req, res, next) => {

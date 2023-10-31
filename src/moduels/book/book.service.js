@@ -24,16 +24,20 @@ module.exports.createBook = catchAsyncError(async (req, res) => {
 })
 
 
-module.exports.getAllBooks = catchAsyncError(async (req, res) => {
-    let Books = await bookModel.find({})
-    res.json({ message: 'this is All Books',Books })
-})
+// module.exports.getAllBooks = catchAsyncError(async (req, res) => {
+//     let Books = await bookModel.find({})
+//     res.json({ message: 'this is All Books',Books })
+// })
 module.exports.getSpecificBook = catchAsyncError(async (req, res) => {
     const {id} = req.params
     let Book = await bookModel.findById(id)
     res.json({ message: 'Success',Book })
 })
-
+module.exports.getAllBooks = catchAsyncError(async (req, res) => {
+    let apiFeatuers = new ApiFeatuers(bookModel.find(), req.query).paginate()
+    let Books = await apiFeatuers.mongooseQuery
+    res.json({ message: 'this is All Books', page: apiFeatuers.page, Books })
+})
 module.exports.updateBook = catchAsyncError(async (req, res, next) => {
     const { id } = req.params
     let book = await bookModel.findByIdAndUpdate(id, req.body, { new: true });
@@ -51,3 +55,13 @@ module.exports.deleteBook = catchAsyncError(async (req, res, next) => {
     }
     res.json({ message: 'Deleted Book', Book })
 })
+
+
+exports.getDetailsOfBook = catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    const book = await bookModel.findById(id, { name: 1, description: 1,_id:0, price: 1, image: 1 , department : 1 ,price:1});
+    if (!book) {
+      return next(new AppError("book not found", 400));
+    }
+    res.status(200).json(book);
+  });

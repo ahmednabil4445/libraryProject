@@ -41,6 +41,7 @@ const bookSchema = mongoose.Schema({
         default: 0,
     },
     image:String,
+    department:String
 }, { timestamps: true})
 
 
