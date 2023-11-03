@@ -45,6 +45,7 @@ module.exports.removeBookFromCart = catchAsyncError(async (req, res, next) => {
         return next(new AppError(`Item Not Found`, 404))
     }
     calcTotalPrice(Result)
+    await Result.save();
     res.json({ message: 'Removed Item Success', cart: Result })
 })
 
@@ -62,13 +63,14 @@ module.exports.updateQuantity = catchAsyncError(async (req, res, next) => {
 
     await isCartExist.save();
     res.status(200).json({ message: 'Updated Success', cart: isCartExist })
-
 })
 
 
 
 module.exports.getLoggedCartUser = catchAsyncError(async (req, res, next) => {
-    let cartItems = await cartModel.findOne({ user: req.user._id }).populate('cartItems.book')
+    let cartItems = await cartModel.findOne({ user: req.user._id })
+    calcTotalPrice(cartItems)
+    await cartItems.save();
     res.status(200).json({ message: 'Success', cart: cartItems })
 
 })

@@ -24,20 +24,16 @@ module.exports.createBook = catchAsyncError(async (req, res) => {
 })
 
 
-// module.exports.getAllBooks = catchAsyncError(async (req, res) => {
-//     let Books = await bookModel.find({})
-//     res.json({ message: 'this is All Books',Books })
-// })
+module.exports.getAllBooks = catchAsyncError(async (req, res) => {
+    let Books = await bookModel.find({})
+    res.json({ message: 'this is All Books',Books })
+})
 module.exports.getSpecificBook = catchAsyncError(async (req, res) => {
     const {id} = req.params
     let Book = await bookModel.findById(id)
     res.json({ message: 'Success',Book })
 })
-module.exports.getAllBooks = catchAsyncError(async (req, res) => {
-    let apiFeatuers = new ApiFeatuers(bookModel.find(), req.query).paginate()
-    let Books = await apiFeatuers.mongooseQuery
-    res.json({ message: 'this is All Books', page: apiFeatuers.page, Books })
-})
+
 module.exports.updateBook = catchAsyncError(async (req, res, next) => {
     const { id } = req.params
     let book = await bookModel.findByIdAndUpdate(id, req.body, { new: true });

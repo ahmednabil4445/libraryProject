@@ -14,11 +14,6 @@ const bookSchema = mongoose.Schema({
         min: 0,
 
     },
-    priceAfterDiscount: {
-        type: Number, 
-        min: 0,
-
-    },
     ratingAvg: {
         type: Number, 
         min: [1, 'rating average must be greater than 1'],
