@@ -68,7 +68,7 @@ module.exports.updateQuantity = catchAsyncError(async (req, res, next) => {
 
 
 module.exports.getLoggedCartUser = catchAsyncError(async (req, res, next) => {
-    let cartItems = await cartModel.findOne({ user: req.user._id })
+    let cartItems = await cartModel.findOne({ user: req.user._id }).populate('cartItems.book')
     calcTotalPrice(cartItems)
     await cartItems.save();
     res.status(200).json({ message: 'Success', cart: cartItems })

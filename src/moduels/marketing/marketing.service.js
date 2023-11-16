@@ -1,5 +1,4 @@
-const bookModel = require('../../../databases/models/book.model')
-const slugify = require('slugify')
+const marketingModel = require('../../../databases/models/marketing.model')
 const AppError = require('../../utils/AppError')
 const { catchAsyncError } = require('../../middleware/catchAsyncError')
 const ApiFeatuers = require('../../utils/ApiFeatuers')
@@ -14,39 +13,39 @@ cloudinary.v2.config({
 });
 // **********************************************
 
-module.exports.createBook = catchAsyncError(async (req, res) => {
+module.exports.createBookMarketing = catchAsyncError(async (req, res) => {
     cloudinary.v2.uploader.upload(req.file.path, async (error, result) => {
         req.body.image = result.secure_url
-        let book = new bookModel(req.body)
+        let book = new marketingModel(req.body)
         await book.save();
         res.status(200).json({ message: 'Success', book })
     });
 })
 
 
-module.exports.getAllBooks = catchAsyncError(async (req, res) => {
-    let Books = await bookModel.find({})
+module.exports.getAllBooksMarketing = catchAsyncError(async (req, res) => {
+    let Books = await marketingModel.find({})
     res.json({ message: 'this is All Books',Books })
 })
 
-module.exports.getSpecificBook = catchAsyncError(async (req, res) => {
+module.exports.getSpecificBookMarketing = catchAsyncError(async (req, res) => {
     const {id} = req.params
-    let Book = await bookModel.findById(id)
+    let Book = await marketingModel.findById(id)
     res.json({ message: 'Success',Book })
 })
 
-module.exports.updateBook = catchAsyncError(async (req, res, next) => {
+module.exports.updateBookMarketing = catchAsyncError(async (req, res, next) => {
     const { id } = req.params
-    let book = await bookModel.findByIdAndUpdate(id, req.body, { new: true });
+    let book = await marketingModel.findByIdAndUpdate(id, req.body, { new: true });
     if (!book) {
         return next(new AppError(`Book Not Found`, 404))
     }
     res.json({ message: 'Updated Book', book })
 })
 
-module.exports.deleteBook = catchAsyncError(async (req, res, next) => {
+module.exports.deleteBookMarketing = catchAsyncError(async (req, res, next) => {
     const { id } = req.params
-    let Book = await bookModel.findByIdAndDelete(id);
+    let Book = await marketingModel.findByIdAndDelete(id);
     if (!Book) {
         return next(new AppError(`Book Not Found`, 404))
     }
@@ -54,9 +53,9 @@ module.exports.deleteBook = catchAsyncError(async (req, res, next) => {
 })
 
 
-exports.getDetailsOfBook = catchAsyncError(async (req, res, next) => {
+exports.getDetailsOfBookMarketing = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
-    const book = await bookModel.findById(id, { name: 1, description: 1,_id:0, price: 1, image: 1 , department : 1 ,price:1});
+    const book = await marketingModel.findById(id, { name: 1, description: 1,_id:0, price: 1, image: 1 , department : 1 ,price:1});
     if (!book) {
       return next(new AppError("book not found", 400));
     }
