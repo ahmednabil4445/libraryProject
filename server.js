@@ -22,6 +22,7 @@ app.use('/api/v1/accountingBook', require('./src/moduels/accounting/accounting.a
 app.use('/api/v1/marketingBook', require('./src/moduels/marketing/marketing.api'))
 app.use('/api/v1/carts', require('./src/moduels/cart/cart.api'))
 app.use('/api/v1/orders', require('./src/moduels/order/order.api'))
+app.use('/api/v1/usedBooks', require('./src/moduels/usedBooks/usedBook.api'))
 
 
 app.all('*', (req, res, next) => {
