@@ -1,4 +1,4 @@
-const usedBookModel = require('../../../databases/models/book.model')
+const usedBookModel = require('../../../databases/models/usedBook.model')
 const slugify = require('slugify')
 const AppError = require('../../utils/AppError')
 const { catchAsyncError } = require('../../middleware/catchAsyncError')
