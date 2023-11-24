@@ -21,6 +21,7 @@ app.use('/api/v1/itBook', require('./src/moduels/it/it.api'))
 app.use('/api/v1/accountingBook', require('./src/moduels/accounting/accounting.api'))
 app.use('/api/v1/marketingBook', require('./src/moduels/marketing/marketing.api'))
 app.use('/api/v1/carts', require('./src/moduels/cart/cart.api'))
+app.use('/api/v1/cartUsedBooks', require('./src/moduels/cartUsedBook/cartUsedBook.api'))
 app.use('/api/v1/orders', require('./src/moduels/order/order.api'))
 app.use('/api/v1/usedBooks', require('./src/moduels/usedBooks/usedBook.api'))
 
