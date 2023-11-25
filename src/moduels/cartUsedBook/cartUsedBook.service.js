@@ -13,7 +13,7 @@ function calcTotalPrice(cart) {
     cart.totalPrice = totalPrice
 }
 module.exports.addUsedBookToCart = catchAsyncError(async (req, res, next) => {
-    let usedBook = await usedBookModel.findById(req.params.usedBook)
+    let usedBook = await usedBookModel.findById(req.body.usedBook)
     if (!usedBook) return next(new AppError('Used Book not found', 401))
     req.body.price = usedBook.price
     let isCartExist = await cartUsedBookModel.findOne({ user: req.user._id })
@@ -26,7 +26,7 @@ module.exports.addUsedBookToCart = catchAsyncError(async (req, res, next) => {
         await result.save();
         return res.status(200).json({ message: 'Added Cart Success', result })
     }
-    let item = isCartExist.cartItems.find((elm) => elm.usedBook == req.params.usedBook)
+    let item = isCartExist.cartItems.find((elm) => elm.usedBook == req.body.usedBook)
     if (item) {
         item.quantity += 1
     } else {
