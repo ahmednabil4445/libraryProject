@@ -67,11 +67,11 @@ module.exports.removeUsedBookFromCart = catchAsyncError(async (req, res, next) =
 
 
 
-// module.exports.getLoggedCartUser = catchAsyncError(async (req, res, next) => {
-//     let cartItems = await cartModel.findOne({ user: req.user._id }).populate('cartItems.book')
-//     calcTotalPrice(cartItems)
-//     await cartItems.save();
-//     res.status(200).json({ message: 'Success', cart: cartItems })
+module.exports.getLoggedUsedCartUser = catchAsyncError(async (req, res, next) => {
+    let cartItems = await cartUsedBookModel.findOne({ user: req.user._id }).populate('cartItems.usedBook')
+    calcTotalPrice(cartItems)
+    await cartItems.save();
+    res.status(200).json({ message: 'Success', cart: cartItems })
 
-// })
+})
 
